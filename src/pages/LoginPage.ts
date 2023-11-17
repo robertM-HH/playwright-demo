@@ -1,6 +1,6 @@
 import { Locator, Page, ViewportSize, expect } from "@playwright/test";
 
-class LoginPage{
+class LoginPage {
     private page: Page
     private url: string;
     private testOne: Locator;
@@ -17,10 +17,29 @@ class LoginPage{
         this.page.setViewportSize(viewportSize || this.defaultViewportSize);
         }
 
-async loginToWebsite() {
-    await this.page.goto(this.url);
-    await expect(this.page).toHaveTitle('DEMOQA');
+    async loginToWebsite() {
+        await this.page.goto(this.url);
+        await expect(this.page).toHaveTitle('DEMOQA');
+    }
+
+    async logoutFromWebsite() {
+        // Your logout logic here
+    }
+
+    async setBrowserSize(size: ViewportSize) {
+        // Your overwritten browser size.
+        await this.page.setViewportSize(size);
+    }
+
+    async commonSetup() {
+        // Your common setup logic here
+        await this.loginToWebsite();
+    }
+
+    async commonCleanup() {
+        // Your common cleanup logic here
+        await this.logoutFromWebsite();
     }
 }
 
-export {LoginPage};
+export {LoginPage}
